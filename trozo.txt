@@ -1,0 +1,42 @@
+﻿<!-- Este soporta el Accordion y el datepicker-->
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" type="text/css"  />
+<script>
+
+function CrearFechaDatePickerName(idFecha,clave)
+{
+    var fecha=new Date();
+    if (clave=='FECANTERIOR')
+	{
+		var anio = fecha.getFullYear()-16;
+	}
+	else
+	{	
+		if(clave=='FECHOY')
+		{
+			var anio = fecha.getFullYear();
+		}
+    }
+    $("#"+idFecha).attr("readonly","readonly");
+    $("#"+idFecha).datepicker({
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+        monthNamesShort: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+        showButtonPanel:true,
+        changeYear: true,
+        changeMonth: true,
+        yearRange: '1948:'+anio,  //personas hasta de 70 años
+        currentText: '',
+        closeText: 'Cerrar',
+        dateFormat:'yy-mm-dd',   //  'yy/mm/dd',
+        onSelect: function(dateText, inst) {
+        $("#"+idFecha).val(CargarFechaExtendida(dateText));
+        $("#"+idFecha).attr('name',dateText);
+        },
+        onClose: function () {
+            this.focus();
+        }
+    });
+} 
+
+CrearFechaDatePickerName('txtFechaNacimiento1','FECANTERIOR');
